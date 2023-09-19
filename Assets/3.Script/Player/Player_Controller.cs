@@ -8,6 +8,8 @@ public class Player_Controller : MonoBehaviour
 
     [SerializeField]private Stage_Data stagedata;
     [SerializeField] private Weapon weapon;
+    //private bool isHit = false;//히트하면 트루값으로 들어감
+    private int Hit_Count = 0;//3회 타격이 되면 die 애니메이션
 
     private void Awake()
     {
@@ -47,8 +49,21 @@ public class Player_Controller : MonoBehaviour
             Mathf.Clamp(transform.position.y,stagedata.LimitMin.y,stagedata.LimitMax.y),
             0
             );
+    }
 
 
+
+        private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Enemy_Bullet"))
+        {
+            Hit_Count++;
+        }
+        if(Hit_Count==3)
+        {
+            //isHit = true;
+            Debug.Log("뒤졌음");
+        }
     }
 
 
